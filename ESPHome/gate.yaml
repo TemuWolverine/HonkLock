@@ -31,29 +31,29 @@ output:
     id: pwm_output
     pin: ${servo_pin}
     frequency: 50Hz
-
-number:
-  - platform: template
-    name: Servo Control
-    min_value: -100
-    initial_value: 0
-    max_value: 100
-    step: 1
-    optimistic: true
-    set_action:
-      then:
-        - servo.write:
-            id: my_servo
-            level: !lambda 'return x / 100.0;'
-
+    
+globals:
+  - id: gatestate
+    type: bool
+    restore_value: yes
+    initial_value: 'false'
+    
 switch:
   - platform: template
     id: gate
     name: "Gate"
-    turn_on_action:
-      - switch.turn_on:  !lambda |-
-        id(my_servo).write(1.0);
-    turn_off_action:
-      - switch.turn_on: !lambda |-
-        id(my_servo).write(-1.0);
+    optimistic: true
+    assumed_state: true
+
+    turn_on_action: 
+      then:
+        - servo.write:
+            id: my_servo
+            level: !lambda 'return 0.0;'
+    turn_off_action: 
+      then:
+        - servo.write:
+            id: my_servo
+            level: !lambda 'return -100.0;'
+    
     
