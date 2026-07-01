@@ -1,0 +1,59 @@
+author: Paul Jenkins
+name: HonkLock
+version: 0.1
+source: https://github.com/TemuWolverine/HonkLock
+labels: [servo, woodworking, esp32]
+---
+
+substitutions:
+  friendly_name: HonkLock Tablesaw
+  device_name: honklock_tablesaw
+
+  #button pins
+  servo_pin: GPIO07
+
+
+packages:
+  esphome_templates:
+    url: https://github.com/TemuWolverine/esphome_templates
+    ref: main
+    refresh: 1d
+    files:
+      - esphome_boilerplate.yaml
+      - boards/waveshare_esp32_s3_zero.yaml
+
+servo:
+  - id: my_servo
+    output: pwm_output
+    
+output:
+  - platform: ledc 
+    id: pwm_output
+    pin: ${servo_pin}
+    frequency: 50Hz
+
+number:
+  - platform: template
+    name: Servo Control
+    min_value: -100
+    initial_value: 0
+    max_value: 100
+    step: 1
+    optimistic: true
+    set_action:
+      then:
+        - servo.write:
+            id: my_servo
+            level: !lambda 'return x / 100.0;'
+
+switch:
+  - platform: template
+    id: gate
+    name: "Gate"
+    turn_on_action:
+      - switch.turn_on:  !lambda |-
+        id(my_servo).write(1.0);
+    turn_off_action:
+      - switch.turn_on: !lambda |-
+        id(my_servo).write(-1.0);
+    
