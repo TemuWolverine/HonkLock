@@ -8,10 +8,7 @@ labels: [servo, woodworking, esp32]
 substitutions:
   friendly_name: HonkLock Tablesaw
   device_name: honklock_tablesaw
-
-  #button pins
   servo_pin: GPIO07
-
 
 packages:
   esphome_templates:
