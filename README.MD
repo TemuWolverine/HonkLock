@@ -18,7 +18,7 @@ ESPNow's advantage is the auto-discovery of gates
   
 |Item|Quantity|Note|
 |---|---|---|
-|[ESP32 S3 SuperMini](https://s.click.aliexpress.com/e/_c3BMFE2p) | 1 | Any ESP32 is going to work. The supermini's are just adorably tiny, and inexpensive, and relatively easy to come across from a range of vendors. <br> The Supermini also has an onboard WS2812 LED (GPIO48), meaning gate status can be indicated (red = closed, green = open) with the included LED.<br><br>**Other supermini variants <ins>except H2 (no wifi)</ins> _should_ work just fine, you will just need to adjust the code slightly.**
+|[ESP32 S3 SuperMini](https://s.click.aliexpress.com/e/_c3BMFE2p) | 1 | (Just about) Any ESP32 is going to work. The supermini's are just adorably tiny, inexpensive, and relatively easy to come across from a range of vendors. <br> The Supermini range also has an onboard WS2812 LED (GPIO48), meaning gate status can be indicated (red = closed, green = open) with the included LED.<br><br>**Other supermini variants <ins>except H2 (no wifi)</ins> _should_ work just fine, you will just need to adjust the code slightly.**
 |[DFRobot DSS-P05](https://core-electronics.com.au/df05bb-standard-servo-5kg.html)|1| most likely any other servo of the same size will work here |
 | [USB-C Breakout Board](https://s.click.aliexpress.com/e/_c4Ki5OT3) | 1| See alternative power wiring below |
 |M4 x 8mm|4|To hold the motor in place|
@@ -27,6 +27,7 @@ ESPNow's advantage is the auto-discovery of gates
 |M4 Heatset Insert |4|^|
 |M5 x 16mm |4| Holds the gate housing together |
 |M5 Heatset Insert | 4 |^|
+
 
 ### Alternative power wiring
 If you'd rather have centralised power that runs out to each gate, you'll need to [calculate the wire required](https://www.omnicalculator.com/physics/wire-size).

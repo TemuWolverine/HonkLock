@@ -19,6 +19,9 @@ packages:
       - esphome_boilerplate.yaml
       - boards/waveshare_esp32_s3_zero.yaml
 
+esphome:
+  name_add_mac_suffix: true
+
 servo:
   - id: my_servo
     output: pwm_output
