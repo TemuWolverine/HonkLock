@@ -1,6 +1,7 @@
 name: Publish Firmware
 
 on:
+  workflow_dispatch: {}
   release:
     types: [published]
 
