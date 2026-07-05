@@ -1,4 +1,3 @@
-# CHANGEME: Set these variable to your liking
-title: ESPHome Project Template
-description: Powered by ESPHome and ESP Web Tools
+title: HonkLock
+description: Automatic Blast Gates for a honkin' good time
 theme: jekyll-theme-slate

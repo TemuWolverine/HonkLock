@@ -23,7 +23,6 @@ jobs:
       matrix:
         #### Modify below here to match your project ####
         file:
-
           - project-template-esp32-s3
         #  - project-template-esp32
         #  - project-template-esp32-c3
