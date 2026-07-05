@@ -142,6 +142,10 @@
         background-image: linear-gradient(#cacaca 2px, transparent 2px), linear-gradient(90deg, #cacaca 2px, transparent 2px);
         background-size: 40px 40px;
       }
+
+      /* --esp-tools-button-color {}
+      --esp-tools-button-text-color {}
+      --esp-tools-button-border-radius {} */
     </style>
   </head>
   <body class="bg-surface font-body-md text-on-surface selection:bg-primary-container selection:text-on-primary-container">
@@ -155,14 +159,6 @@
           <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Firmware</a>
           <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Hardware</a>
           <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="https://github.com/TemuWolverine/HonkLock">GitHub</a>
-        </div>
-        <div class="flex items-center gap-sm">
-          <button class="bg-primary text-on-primary px-sm py-xs font-bold rounded-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-xs">
-            <span class="material-symbols-outlined text-[20px]">bolt</span> <esp-web-install-button manifest="firmware/honk-lock.manifest.json"></esp-web-install-button>
-
-
-
-</button>
         </div>
       </nav>
     </header>
@@ -178,9 +174,15 @@
             </div>
             <h1 class="font-headline-xl text-headline-xl text-on-surface mb-sm max-w-3xl"> The Open Source Blast Gate System for Woodworkers. </h1>
             <div class="flex flex-col sm:flex-row gap-md items-center">
-              <button class="bg-primary-container text-on-primary-container px-lg py-md rounded-xl font-bold text-lg hover:brightness-105 active:scale-[0.98] transition-all flex items-center gap-sm shadow-sm ring-1 ring-primary/20">
-                <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1">developer_board</span> Flash Device </button>
-              <a class="text-on-surface font-bold hover:text-primary transition-colors flex items-center gap-xs" href="#"> View Hardware Specs <span class="material-symbols-outlined">arrow_forward</span>
+              <esp-web-install-button manifest="hfirmware/honk-lock.manifest.json">
+                <button slot="activate"  class="bg-primary-container text-on-primary-container px-lg py-md rounded-xl font-bold text-lg hover:brightness-105 active:scale-[0.98] transition-all flex items-center gap-sm shadow-sm ring-1 ring-primary/20">
+                  <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1">bolt</span>          
+                  Flash HonkLock</button>
+                <span slot="unsupported">Ah snap, your browser doesn't work!</span>
+                <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
+              </esp-web-install-button>
+
+              <a class="text-on-surface font-bold hover:text-primary transition-colors flex items-center gap-xs" href="#"> Build Your Own <span class="material-symbols-outlined">arrow_forward</span>
               </a>
             </div>
             <!-- Code/Status Snippet -->
