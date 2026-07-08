@@ -4,10 +4,8 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Honk Lock | Open Source Blast Gate System</title>
-
-    <!-- espwebtools --> 
+    <!-- espwebtools -->
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -95,40 +93,19 @@
               "body-md": ["Inter"],
             },
             fontSize: {
-              "headline-xl": ["48px", {
-                lineHeight: "56px",
-                letterSpacing: "-0.02em",
-                fontWeight: "700",
-              }, ],
-              "headline-lg": ["32px", {
-                lineHeight: "40px",
-                letterSpacing: "-0.01em",
-                fontWeight: "600",
-              }, ],
-              "body-sm": ["14px", {
-                lineHeight: "20px",
-                fontWeight: "400"
-              }, ],
-              "label-code": ["13px", {
-                lineHeight: "16px",
-                fontWeight: "500"
-              }, ],
-              "headline-lg-mobile": ["28px", {
-                lineHeight: "36px",
-                fontWeight: "600"
-              }, ],
-              "body-md": ["16px", {
-                lineHeight: "24px",
-                fontWeight: "400"
-              }, ],
+              "headline-xl": ["48px", {lineHeight: "56px",letterSpacing: "-0.02em",fontWeight: "700",}, ],
+              "headline-lg": ["32px", {lineHeight: "40px",letterSpacing: "-0.01em",fontWeight: "600",}, ],
+              "body-sm": ["14px", {lineHeight: "20px",fontWeight: "400"}, ],
+              "label-code": ["13px", {lineHeight: "16px",fontWeight: "500"}, ],
+              "headline-lg-mobile": ["28px", {lineHeight: "36px",fontWeight: "600"}, ],
+              "body-md": ["16px", {lineHeight: "24px",fontWeight: "400"}, ],
             },
           },
         },
       };
     </script>
     <style>
-      .material-symbols-outlined 
-      {
+      .material-symbols-outlined {
         font-variation-settings:
           "FILL"0,
           "wght"400,
@@ -138,7 +115,7 @@
         vertical-align: middle;
       }
 
-      .technical-grid { 
+      .technical-grid {
         background-image: linear-gradient(#cacaca 2px, transparent 2px), linear-gradient(90deg, #cacaca 2px, transparent 2px);
         background-size: 40px 40px;
       }
@@ -157,7 +134,7 @@
         </div>
         <div class="hidden md:flex items-center gap-lg font-body-md text-body-md">
           <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Firmware</a>
-          <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Hardware</a>
+          <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="#buildyourown">Build Your Own</a>
           <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 cursor-pointer active:opacity-80" href="https://github.com/TemuWolverine/HonkLock">GitHub</a>
         </div>
       </nav>
@@ -176,14 +153,12 @@
             <h2 class="font-headline-lg text-headline-lg text-on-surface mb-sm max-w-2xl">And maybe ferrets</h2>
             <div class="flex flex-col sm:flex-row gap-md items-center">
               <esp-web-install-button manifest="hfirmware/honk-lock.manifest.json">
-                <button slot="activate"  class="bg-primary-container text-on-primary-container px-lg py-md rounded-xl font-bold text-lg hover:brightness-105 active:scale-[0.98] transition-all flex items-center gap-sm shadow-sm ring-1 ring-primary/20">
-                  <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1">bolt</span>          
-                  Flash HonkLock</button>
+                <button slot="activate" class="bg-primary-container text-on-primary-container px-lg py-md rounded-xl font-bold text-lg hover:brightness-105 active:scale-[0.98] transition-all flex items-center gap-sm shadow-sm ring-1 ring-primary/20">
+                  <span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1">bolt</span> Flash HonkLock </button>
                 <span slot="unsupported">Ah snap, your browser doesn't work!</span>
                 <span slot="not-allowed">Ah snap, you are not allowed to use this on HTTP!</span>
               </esp-web-install-button>
-
-              <a class="text-on-surface font-bold hover:text-primary transition-colors flex items-center gap-xs" href="#"> Build Your Own <span class="material-symbols-outlined">arrow_forward</span>
+              <a class="text-on-surface font-bold hover:text-primary transition-colors flex items-center gap-xs" href="#buildyourown"> Build Your Own <span class="material-symbols-outlined">arrow_forward</span>
               </a>
             </div>
             <!-- Code/Status Snippet -->
@@ -226,7 +201,7 @@
               <div class="w-12 h-12 bg-secondary-container rounded-lg flex items-center justify-center text-primary mb-md group-hover:scale-110 transition-transform">
                 <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: &quot;FILL&quot; 1">memory</span>
               </div>
-              <h3 class="font-headline-lg text-[20px] mb-xs"> ESP32 Powered </h3>
+              <h3 class="font-headline-lg text-[20px] mb-xs"> ESP32-S3 Powered </h3>
               <p class="text-on-surface-variant text-body-sm mb-md"> Built on the robust ESP32 microcontroller, offering dual-core performance and integrated Wi-Fi for remote monitoring and OTA updates. </p>
             </div>
             <!-- Feature Card 2 -->
@@ -246,6 +221,105 @@
               <p class="text-on-surface-variant text-body-sm mb-md"> Licensed under MIT . Modify the firmware, adapt the STLs, or contribute to the core library. Your workshop, your rules. </p>
             </div>
           </div>
+        </div>
+      </section>
+      <section class="py-xl bg-surface-container-low">
+        <div class="max-w-container-max mx-auto px-md">
+          <div class="text-center mb-xl">
+            <h2 class="font-headline-lg text-headline-lg text-on-surface" id="buildyourown">Build Your Own</h2>
+            <p class="text-on-surface-variant mt-xs">Everything you need to build your own automated blast gate system.</p>
+          </div>
+          <div class="max-w-4xl mx-auto">
+            <h3 class="font-headline-lg text-[24px] font-bold mb-sm">Hardware (Per Gate)</h3>
+            <div class="overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm">
+              <table class="w-full text-left border-collapse font-body-md">
+                <thead>
+                  <tr class="bg-surface-container-low border-b border-outline-variant">
+                    <th class="p-md font-bold text-on-surface">Item</th>
+                    <th class="p-md font-bold text-on-surface w-24">Quantity</th>
+                    <th class="p-md font-bold text-on-surface">Note</th>
+                    <th class="p-md font-bold text-on-surface w-32">Cost (AUD)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant">
+                  <tr>
+                    <td class="p-md">
+                      <a class="text-primary font-bold hover:underline" href="https://s.click.aliexpress.com/e/_c3BMFE2p">ESP32 S3 SuperMini</a>
+                    </td>
+                    <td class="p-md">1</td>
+                    <td class="p-md text-body-sm text-on-surface-variant"> (Just about) Any ESP32 is going to work. The supermini's are just adorably tiny, inexpensive, and relatively easy to come across from a range of vendors. <br />
+                      <br /> The Supermini range also has an onboard WS2812 LED (GPIO48), meaning gate status can be indicated (red = closed, green = open) with the included LED. <br />
+                      <br />
+                      <b>Other supermini variants <u>except H2 (no wifi)</u>
+                        <i>should</i> work just fine, you will just need to adjust the code slightly. </b>
+                    </td>
+                    <td class="p-md font-label-code text-label-code">~$5.50</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">
+                      <a class="text-primary font-bold hover:underline" href="https://core-electronics.com.au/df05bb-standard-servo-5kg.html">DFRobot DSS-P05</a>
+                    </td>
+                    <td class="p-md">1</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">most likely any other servo of the same size will work here</td>
+                    <td class="p-md font-label-code text-label-code">~$12.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">
+                      <a class="text-primary font-bold hover:underline" href="https://s.click.aliexpress.com/e/_c4Ki5OT3">USB-C Breakout Board</a>
+                    </td>
+                    <td class="p-md">1</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">See alternative power wiring below</td>
+                    <td class="p-md font-label-code text-label-code">~$0.50</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">M4 x 8mm</td>
+                    <td class="p-md">4</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">To hold the motor in place</td>
+                    <td class="p-md font-label-code text-label-code">~$0.20</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">M4 Hex Nut</td>
+                    <td class="p-md">4</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">To hold the motor in place</td>
+                    <td class="p-md font-label-code text-label-code">~$0.10</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">M5 x 16mm</td>
+                    <td class="p-md">4</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">Holds the gate housing together</td>
+                    <td class="p-md font-label-code text-label-code">~$0.60</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">M5 Heatset Insert</td>
+                    <td class="p-md">4</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">To hold the gate housing together</td>
+                    <td class="p-md font-label-code text-label-code">~$0.70</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">Hall Effect Sensor</td>
+                    <td class="p-md">1</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">To detect tool power on/off</td>
+                    <td class="p-md font-label-code text-label-code">~$??</td>
+                  </tr>
+                  <tr>
+                    <td class="p-md">Remote Trigger</td>
+                    <td class="p-md">1</td>
+                    <td class="p-md text-body-sm text-on-surface-variant">To manually open/close the gate. See remote options below.</td>
+                    <td class="p-md font-label-code text-label-code">~$??</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>Total Estimated Cost Per Gate: ~$20.00
+
+
+          </div>
+            <div class="max-w-4xl mx-auto">
+              <h3 class="font-headline-lg text-[24px] font-bold mb-sm">Wiring</h3>
+            </div>
+            <div class="max-w-4xl mx-auto">
+              <h3 class="font-headline-lg text-[24px] font-bold mb-sm">Alternative Power</h3>
+            </div>
+        </div>
         </div>
       </section>
     </main>
