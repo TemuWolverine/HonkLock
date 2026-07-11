@@ -162,7 +162,7 @@
         "min_track_width": 0.2,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.5,
-        "solder_mask_to_copper_clearance": 0.0,
+        "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
       },
       "teardrop_options": [
@@ -211,6 +211,7 @@
       ],
       "track_widths": [
         0.0,
+        0.4,
         0.6,
         0.8
       ],
@@ -663,13 +664,13 @@
         "uuid": "1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
       }
     ],
-    "used_designators": "J2",
+    "used_designators": "J2,SW1-3",
     "variants": []
   },
   "sheets": [
     [
       "1f7d0ac2-2799-49a0-9400-1e8fd84af1b9",
-      "BlastingGates"
+      "HonkLock"
     ]
   ],
   "text_variables": {},

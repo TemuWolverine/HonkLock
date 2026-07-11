@@ -1354,6 +1354,170 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Switch:SW_Push"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "SW"
+				(at 1.27 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "SW_Push"
+				(at 0 -1.524 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Push button switch, generic, two pins"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "switch normally-open pushbutton push-button"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "SW_Push_0_1"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy 0 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 1.27) (xy -2.54 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:PWR_FLAG"
 			(power global)
 			(pin_numbers
@@ -1471,7 +1635,7 @@
 		)
 	)
 	(junction
-		(at 115.316 68.58)
+		(at 90.17 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4ab83a1d-5bbe-499d-aa41-66e165129dbe")
@@ -1483,30 +1647,40 @@
 		(uuid "eacd1c4b-78ee-4a6e-a5e0-e0a26a68f13c")
 	)
 	(no_connect
-		(at 99.06 63.5)
+		(at 73.914 53.34)
 		(uuid "34facb83-8fcf-4952-8128-22750e3a5a2e")
 	)
 	(no_connect
-		(at 99.06 60.96)
+		(at 73.914 50.8)
 		(uuid "71ec3626-1f44-48ec-a80c-5024ee83a3ca")
 	)
 	(no_connect
-		(at 99.06 58.42)
+		(at 73.914 48.26)
 		(uuid "75a01d4a-198a-4fbd-bbc2-fe2ec3691fa7")
 	)
 	(no_connect
-		(at 99.06 55.88)
+		(at 73.914 45.72)
 		(uuid "c7a31218-bcab-4eaf-ac91-3019e23fd5eb")
 	)
 	(wire
 		(pts
-			(xy 99.06 68.58) (xy 115.316 68.58)
+			(xy 73.914 58.42) (xy 90.17 58.42)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "047486a9-2b32-4adc-8692-1bdd22c1fbe3")
+	)
+	(wire
+		(pts
+			(xy 133.35 77.47) (xy 140.97 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11cd46ad-8a66-463a-aedc-28dd6fb8cfb8")
 	)
 	(wire
 		(pts
@@ -1560,6 +1734,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 41.91) (xy 134.62 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d5dc36f-1016-44d4-bd2f-12beab6dcb82")
+	)
+	(wire
+		(pts
 			(xy 115.57 82.55) (xy 107.95 82.55)
 		)
 		(stroke
@@ -1580,13 +1764,23 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 66.04) (xy 104.14 66.04)
+			(xy 73.914 55.88) (xy 78.994 55.88)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "7b025e92-3f5b-4855-ae17-de159412cda4")
+	)
+	(wire
+		(pts
+			(xy 137.16 72.39) (xy 140.97 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ee77e38-90c4-44cd-b0a0-0d82c944d45f")
 	)
 	(wire
 		(pts
@@ -1600,7 +1794,7 @@
 	)
 	(wire
 		(pts
-			(xy 104.14 63.5) (xy 120.65 63.5)
+			(xy 78.994 53.34) (xy 95.504 53.34)
 		)
 		(stroke
 			(width 0)
@@ -1610,13 +1804,43 @@
 	)
 	(wire
 		(pts
-			(xy 104.14 66.04) (xy 104.14 63.5)
+			(xy 78.994 55.88) (xy 78.994 53.34)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "9d8505a0-902f-4d38-9c73-f36a0e92e0c4")
+	)
+	(wire
+		(pts
+			(xy 133.35 77.47) (xy 133.35 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a399b569-a670-4703-943c-80b54f2b57e7")
+	)
+	(wire
+		(pts
+			(xy 133.35 31.75) (xy 137.16 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5f86aab-e0a9-4fa0-a172-71f52dffc702")
+	)
+	(wire
+		(pts
+			(xy 147.32 31.75) (xy 153.67 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac825cc2-44bb-4088-85e4-5a08f63b2de4")
 	)
 	(wire
 		(pts
@@ -1630,6 +1854,36 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 52.07) (xy 137.16 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b3860d13-2bc0-4209-8eda-6872e0c2d3da")
+	)
+	(wire
+		(pts
+			(xy 147.32 41.91) (xy 153.67 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5524aad-a945-4a5b-b4a3-fa813e02f7ed")
+	)
+	(wire
+		(pts
+			(xy 134.62 74.93) (xy 140.97 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7a81459-4849-401b-99af-d56c204f7bcd")
+	)
+	(wire
+		(pts
 			(xy 107.95 85.09) (xy 127 85.09)
 		)
 		(stroke
@@ -1637,6 +1891,26 @@
 			(type default)
 		)
 		(uuid "bbc257da-4548-4117-8912-b02a9e0f99fe")
+	)
+	(wire
+		(pts
+			(xy 147.32 52.07) (xy 153.67 52.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bda51a00-2fe3-4b93-aebe-ad07f13511f3")
+	)
+	(wire
+		(pts
+			(xy 134.62 41.91) (xy 134.62 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c338c801-405e-41ee-87ec-9a37015aedc0")
 	)
 	(wire
 		(pts
@@ -1690,7 +1964,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.316 68.58) (xy 120.65 68.58)
+			(xy 90.17 58.42) (xy 95.504 58.42)
 		)
 		(stroke
 			(width 0)
@@ -1772,7 +2046,7 @@
 	)
 	(global_label "VDD"
 		(shape input)
-		(at 120.65 68.58 0)
+		(at 95.504 58.42 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1782,7 +2056,7 @@
 		)
 		(uuid "58ae5f50-9f57-4b6a-8038-cd99e7510080")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 127.2638 68.58 0)
+			(at 102.1178 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1844,6 +2118,30 @@
 	)
 	(global_label "GND"
 		(shape input)
+		(at 153.67 52.07 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a13c6ed1-3cad-4033-8a01-39c691ce2a51")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 160.5257 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
 		(at 153.67 113.03 270)
 		(fields_autoplaced yes)
 		(effects
@@ -1863,6 +2161,30 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 153.67 41.91 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c48efb87-8513-4151-bed7-2338b4f2ac1b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 160.5257 41.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 	)
@@ -1892,7 +2214,7 @@
 	)
 	(global_label "GND"
 		(shape input)
-		(at 120.65 63.5 0)
+		(at 95.504 53.34 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1902,7 +2224,31 @@
 		)
 		(uuid "d582d52b-21d5-4740-a17a-d32084fe797f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 127.5057 63.5 0)
+			(at 102.3597 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 153.67 31.75 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f5c53908-77d9-4581-ac82-69204e8a2e07")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 160.5257 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1915,8 +2261,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 115.316 68.58 180)
+		(lib_id "Switch:SW_Push")
+		(at 142.24 52.07 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1924,10 +2270,10 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "432714e7-6f6a-469d-9b69-4a85ae7ddb72")
-		(property "Reference" "#FLG02"
-			(at 115.316 70.485 0)
-			(hide yes)
+		(fields_autoplaced yes)
+		(uuid "14a015e5-3996-4ba2-811b-0ebf45a31d1c")
+		(property "Reference" "SW1"
+			(at 142.24 44.45 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1936,8 +2282,8 @@
 				)
 			)
 		)
-		(property "Value" "PWR_FLAG"
-			(at 115.316 73.66 0)
+		(property "Value" "SW_Push"
+			(at 142.24 46.99 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1946,8 +2292,8 @@
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 115.316 68.58 0)
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm"
+			(at 142.24 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1958,7 +2304,87 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 115.316 68.58 0)
+			(at 142.24 46.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 142.24 52.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "51b7cf14-b0eb-4783-9871-544c94d3f1dc")
+		)
+		(pin "1"
+			(uuid "817cb86e-2e75-4bc2-9c07-e660c6f0f2f3")
+		)
+		(instances
+			(project "HonkLock"
+				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 90.17 58.42 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "432714e7-6f6a-469d-9b69-4a85ae7ddb72")
+		(property "Reference" "#FLG02"
+			(at 90.17 60.325 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 90.17 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 90.17 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 90.17 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1969,7 +2395,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 115.316 68.58 0)
+			(at 90.17 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1983,7 +2409,7 @@
 			(uuid "550ac20e-f020-4cf9-8bf9-029674bb1f03")
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "#FLG02")
 					(unit 1)
@@ -2059,7 +2485,7 @@
 			)
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "H1")
 					(unit 1)
@@ -2135,7 +2561,7 @@
 			)
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "H2")
 					(unit 1)
@@ -2211,7 +2637,7 @@
 			)
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "H3")
 					(unit 1)
@@ -2221,7 +2647,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x06_Pin")
-		(at 93.98 60.96 0)
+		(at 68.834 50.8 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2232,7 +2658,7 @@
 		(fields_autoplaced yes)
 		(uuid "aacfbd56-41cf-474f-90d0-68a00389f2fe")
 		(property "Reference" "J2"
-			(at 94.615 50.8 0)
+			(at 69.469 40.64 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2242,7 +2668,7 @@
 			)
 		)
 		(property "Value" "Conn_01x06_Pin"
-			(at 94.615 53.34 0)
+			(at 69.469 43.18 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2252,7 +2678,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical"
-			(at 93.98 60.96 0)
+			(at 68.834 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2263,7 +2689,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 93.98 60.96 0)
+			(at 68.834 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2274,7 +2700,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x06, script generated"
-			(at 93.98 60.96 0)
+			(at 68.834 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2303,7 +2729,7 @@
 			(uuid "36617ea5-40dc-42e6-a3e7-2384f3958bf1")
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "J2")
 					(unit 1)
@@ -2385,7 +2811,7 @@
 			(uuid "133a3ca3-05c6-4752-806c-037f8f3c68ac")
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "J1")
 					(unit 1)
@@ -2513,9 +2939,169 @@
 			(uuid "ee7298fc-90b3-4a5c-aa91-77e5029e2e92")
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 142.24 41.91 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c3b66760-8e95-41d8-8c3f-5cd30398483a")
+		(property "Reference" "SW2"
+			(at 142.24 34.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push"
+			(at 142.24 36.83 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm"
+			(at 142.24 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 142.24 41.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "196cd59a-4622-4bb2-84d5-ea6776fc4c2c")
+		)
+		(pin "1"
+			(uuid "af14a14c-f527-4713-9170-84f092b00871")
+		)
+		(instances
+			(project "HonkLock"
+				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
+					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 142.24 31.75 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c500f25e-9c51-477a-becd-c05914e03e2a")
+		(property "Reference" "SW3"
+			(at 142.24 24.13 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push"
+			(at 142.24 26.67 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_THT:SW_PUSH_6mm"
+			(at 142.24 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 142.24 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "325ddb3f-df44-4bf1-8b13-e85812f9c4f8")
+		)
+		(pin "1"
+			(uuid "e285bc7a-95ef-461e-bf99-17b95085a806")
+		)
+		(instances
+			(project "HonkLock"
+				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
+					(reference "SW3")
 					(unit 1)
 				)
 			)
@@ -2599,7 +3185,7 @@
 			(uuid "178eb967-c004-418f-ab02-98257ddf587f")
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "J3")
 					(unit 1)
@@ -2675,7 +3261,7 @@
 			)
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "H4")
 					(unit 1)
@@ -2754,7 +3340,7 @@
 			(uuid "915426c7-b1f9-4c05-b233-c7a7febc5a57")
 		)
 		(instances
-			(project "BlastingGates"
+			(project "HonkLock"
 				(path "/1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
 					(reference "#FLG01")
 					(unit 1)
