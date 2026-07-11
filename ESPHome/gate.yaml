@@ -2,13 +2,16 @@ author: Paul Jenkins
 name: HonkLock
 version: 0.1
 source: https://github.com/TemuWolverine/HonkLock
+board: https://www.espboards.dev/esp32/esp32-s3-super-mini/
 labels: [servo, woodworking, esp32]
 ---
 
 substitutions:
-  friendly_name: HonkLock Tablesaw
-  device_name: honklock_tablesaw
-  servo_pin: GPIO07
+  friendly_name: HonkLock
+  device_name: honklock
+  servo_pin: GPIO08
+  sda_pin: GPIO010
+  scl_pin: GPIO09
 
 packages:
   esphome_templates:
@@ -17,10 +20,27 @@ packages:
     refresh: 1d
     files:
       - esphome_boilerplate.yaml
-      - boards/waveshare_esp32_s3_zero.yaml
+      - boards/esp32_s3_supermini.yaml
 
 esphome:
   name_add_mac_suffix: true
+
+# Setup
+globals:
+  - id: gatestate
+    type: bool
+    restore_value: yes
+    initial_value: 'false'
+
+  - id: servo_open_position
+    type: float
+    restore_value: yes
+    initial_value: '0.0'
+
+  - id: servo_closed_position
+    type: float
+    restore_value: yes
+    initial_value: '-100.0'
 
 servo:
   - id: my_servo
@@ -32,12 +52,129 @@ output:
     pin: ${servo_pin}
     frequency: 50Hz
     
-globals:
-  - id: gatestate
-    type: bool
-    restore_value: yes
-    initial_value: 'false'
+i2c:
+  - id: bus_a
+    sda: ${sda_pin}
+    scl: ${scl_pin}
+    scan: true
+
+#  - id: bus_b
+#    sda: GPIO10
+#    scl: GPIO11
+#    scan: true
+
+#Tool detection
+
+sensor:
+  - platform: mlx90393 #https://esphome.io/components/sensor/mlx90393/
+    i2c_id : bus_a
+    address: 0x18
+    id: mlx
+    gain: 5X
+
+    x_axis:
+      name: "MLX Field Strength X"
+      resolution: DIV_8
+      id: mlx_x
+      accuracy_decimals: 5
+      internal: true
+    y_axis:
+      name: "MLX Field Strength Y"
+      resolution: DIV_8
+      id: mlx_y
+      accuracy_decimals: 5
+      internal: true
+    z_axis:
+      name: "MLX Field Strength Z"
+      resolution: DIV_8
+      id: mlx_z
+      accuracy_decimals: 5
+      internal: true
+      
+    update_interval : 20ms
+
+  - platform: template
+    id: magnetic_strength
+    internal: true
+    lambda: |-
+      return sqrt(
+        id(mlx_x).state * id(mlx_x).state +
+        id(mlx_y).state * id(mlx_y).state +
+        id(mlx_z).state * id(mlx_z).state
+      );
+
+    update_interval: 20ms
     
+  - platform: copy
+    source_id: magnetic_strength
+    id: magnetic_baseline
+    internal: true
+    filters:
+      - exponential_moving_average:
+          alpha: 0.01
+          send_every: 1  
+          
+  - platform: template
+    id: magnetic_delta
+    internal: true
+    lambda: |-
+      return fabs(id(magnetic_strength).state -
+                  id(magnetic_baseline).state);
+    update_interval: 10ms
+
+binary_sensor:
+  - platform: template
+    id: tool_running
+    name: "Tool Running"
+
+    lambda: |-
+      return id(magnetic_delta).state > 2.5;
+
+    filters:
+      - delayed_on: 150ms
+      - delayed_off: 500ms
+        
+    on_press:
+      - switch.turn_on: gate
+
+# Gate stuff
+number:
+  # Calibration slider for open position
+  - platform: template
+    id: calibrate_open
+    name: "Calibrate Open Position"
+    min_value: -100.0
+    max_value: 100.0
+    step: 1.0
+    optimistic: true
+    restore_value: yes
+    unit_of_measurement: "%"
+    set_action:
+      then:
+        - lambda: |-
+            id(servo_open_position) = x;
+        - servo.write:
+            id: my_servo
+            level: !lambda 'return id(servo_open_position) / 100;'
+            
+   # Calibration slider for closed position
+  - platform: template
+    id: calibrate_closed
+    name: "Calibrate Closed Position"
+    min_value: -100.0
+    max_value: 100.0
+    optimistic: true
+    restore_value: yes
+    step: 1.0
+    unit_of_measurement: "%"
+    set_action:
+      then:
+        - lambda: |-
+            id(servo_closed_position) = x;
+        - servo.write:
+            id: my_servo
+            level: !lambda 'return id(servo_closed_position) / 100;'
+
 switch:
   - platform: template
     id: gate
@@ -49,11 +186,30 @@ switch:
       then:
         - servo.write:
             id: my_servo
-            level: !lambda 'return 0.0;'
+            level: !lambda 'return id(servo_open_position) /100;'
+
+        - light.turn_on:
+            id: statusled
+            brightness: 100%
+            red: 0%
+            green: 100%
+            blue: 0%
+        - globals.set:
+            id: gatestate
+            value: 'true'
+
     turn_off_action: 
       then:
         - servo.write:
             id: my_servo
-            level: !lambda 'return -100.0;'
-    
-    
+            level: !lambda 'return id(servo_closed_position) /100;'
+        - light.turn_on:
+            id: statusled
+            brightness: 100%
+            red: 100%
+            green: 0%
+            blue: 0%
+
+        - globals.set:
+            id: gatestate
+            value: 'false'
