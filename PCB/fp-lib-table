@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "Circuits") (type "KiCad") (uri "D:/Source/Circuits/KicadCustomParts/Circuits.pretty") (options "") (descr ""))
+)
