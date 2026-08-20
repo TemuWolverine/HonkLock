@@ -42,3 +42,4 @@ fp-info-cache
 *.kicad_prl
 circuit/EASYEDA_MODELS/
 circuit/**/*.csv
+PCB/production/
