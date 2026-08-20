@@ -31,7 +31,6 @@ ESPNow's advantage is the auto-discovery of gates
 
 ### Alternative power wiring
 If you'd rather have centralised power that runs out to each gate, you'll need to [calculate the wire required](https://www.omnicalculator.com/physics/wire-size).
-The motor will draw a max of 350mA(@5v), with the ESP32 drawing ~300mA(@3.3v) with wifi active and the LED on. If you assume a safe 1A per gate, 5m of wiring will require 15 AWG/1.32mm wiring.
 
 ### ESP32 SuperMini Variants  
 There are a range of ESP32 "Supermini dev boards", most of which have identical pinouts, but not all are suitable.
@@ -43,8 +42,3 @@ There are a range of ESP32 "Supermini dev boards", most of which have identical 
 |C3 Plus|✅|Seems to be a C3 with external antenna option|
 |C6|✅|Single core RISC-V chip, with Wifi 6 (2.4ghz) and thread/zigbee/matter support|
 |H2|❌|ESP32-H2 does not have Wifi at all, it has Bluetooth 5LE and thread/zigbee. Currently Wifi is a HonkLock requirement |
-
-### DF Robot Motor Wiring
-Brown = GND  
-Red = VCC  
-Yellow/Orange = Signal
