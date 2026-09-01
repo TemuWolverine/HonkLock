@@ -39,9 +39,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.8,
-          "height": 1.27,
-          "width": 1.27
+          "drill": 0.0,
+          "height": 1.8,
+          "width": 0.588
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -52,25 +52,64 @@
         "zones": {
           "border_display_style": 2,
           "border_hatch_pitch": 0.5,
-          "corner_radius": 0.0,
-          "corner_smoothing": 0,
+          "corner_radius": 1.0,
+          "corner_smoothing": 2,
           "fill_mode": 0,
           "hatch_gap": 1.5,
           "hatch_orientation": 0.0,
           "hatch_smoothing_level": 0,
           "hatch_smoothing_value": 0.1,
           "hatch_thickness": 1.0,
-          "min_clearance": 0.5,
+          "min_clearance": 0.0,
           "min_island_area": 10.0,
           "min_thickness": 0.25,
-          "pad_connection": 1,
+          "pad_connection": 2,
           "remove_islands": 0,
           "thermal_relief_gap": 0.5,
           "thermal_relief_spoke_width": 0.5
         }
       },
-      "diff_pair_dimensions": [],
-      "drc_exclusions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
+      "drc_exclusions": [
+        [
+          "copper_edge_clearance|135487316|44078000|7e8a1ddf-c0cc-4fc6-84a2-ce00ea566ee7|466a18d9-f1f8-4529-8922-5f376a9acdd7",
+          ""
+        ],
+        [
+          "copper_edge_clearance|135748000|44078000|7e8a1ddf-c0cc-4fc6-84a2-ce00ea566ee7|26a49c0d-5ac4-48f2-b9ff-106f4483da18",
+          ""
+        ],
+        [
+          "copper_edge_clearance|141098000|44078000|483a9166-2dd3-4069-a67a-a3fd75bf758a|f37c753b-2a50-4990-a7c5-12a595e8b331",
+          ""
+        ],
+        [
+          "copper_edge_clearance|141348000|44078000|483a9166-2dd3-4069-a67a-a3fd75bf758a|d056516a-99ca-4537-abab-9d4739c44f1a",
+          ""
+        ],
+        [
+          "lib_footprint_issues|138423000|41215000|aff927c8-c149-4865-b492-d7d803764ae8|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|126298000|61705000|238d45cd-ee30-4770-b5e8-fe2bb331bb8a|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|130108000|78401500|7657d377-6dfd-44bb-9b28-6501948ef315|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|147924429|67281000|2bfe5070-1f61-49b6-982c-39ab9ca3d57a|00000000-0000-0000-0000-000000000000",
+          ""
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -156,7 +195,7 @@
         "min_track_width": 0.2,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.5,
-        "solder_mask_to_copper_clearance": 0.0,
+        "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
       },
       "teardrop_options": [
@@ -203,7 +242,11 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0,
+        0.4,
+        0.6
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -230,7 +273,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -240,7 +288,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -466,7 +514,7 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
-      "pin_to_pin": "warning",
+      "pin_to_pin": "error",
       "power_pin_not_driven": "error",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
@@ -628,7 +676,7 @@
       "default_line_thickness": 6.0,
       "default_text_size": 50.0,
       "field_names": [],
-      "hop_over_size_choice": 0,
+      "hop_over_size_choice": 2,
       "intersheets_ref_own_page": false,
       "intersheets_ref_prefix": "",
       "intersheets_ref_short": false,
@@ -661,7 +709,7 @@
         "uuid": "1f7d0ac2-2799-49a0-9400-1e8fd84af1b9"
       }
     ],
-    "used_designators": "#PWR14-19",
+    "used_designators": "#PWR14-20,C3-6,R4-10,U3",
     "variants": []
   },
   "sheets": [
