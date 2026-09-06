@@ -11950,7 +11950,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Circuits:RJ45-TH_HC-WK88-H16-DB"
+		(property "Footprint" "Circuits_Connectors:RJ45-TH_HC-WK88-H16-DB"
 			(at 82.55 123.19 0)
 			(hide yes)
 			(show_name no)

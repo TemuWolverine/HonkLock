@@ -92,22 +92,6 @@
         [
           "copper_edge_clearance|141348000|44078000|483a9166-2dd3-4069-a67a-a3fd75bf758a|d056516a-99ca-4537-abab-9d4739c44f1a",
           ""
-        ],
-        [
-          "lib_footprint_issues|138423000|41215000|aff927c8-c149-4865-b492-d7d803764ae8|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "lib_footprint_mismatch|126298000|61705000|238d45cd-ee30-4770-b5e8-fe2bb331bb8a|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "lib_footprint_mismatch|130108000|78401500|7657d377-6dfd-44bb-9b28-6501948ef315|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "lib_footprint_mismatch|147924429|67281000|2bfe5070-1f61-49b6-982c-39ab9ca3d57a|00000000-0000-0000-0000-000000000000",
-          ""
         ]
       ],
       "meta": {
@@ -532,8 +516,15 @@
     }
   },
   "libraries": {
-    "pinned_footprint_libs": [],
-    "pinned_symbol_libs": []
+    "pinned_footprint_libs": [
+      "Circuits_Connectors",
+      "Circuits_MCU"
+    ],
+    "pinned_symbol_libs": [
+      "Circuits",
+      "Circuits_Connectors",
+      "Circuits_MCU"
+    ]
   },
   "meta": {
     "filename": "HonkLock.kicad_pro",

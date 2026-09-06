@@ -10991,7 +10991,7 @@
 				)
 			)
 		)
-		(property "Footprint" "EasyEDA_Lib:SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL"
+		(property "Footprint" "Circuits:SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL"
 			(at 148.59 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -11144,7 +11144,7 @@
 				)
 			)
 		)
-		(property "Footprint" "EasyEDA_Lib:USB-C-SMD_TYPE-C-16PIN-2MD-073"
+		(property "Footprint" "Circuits_Connectors:USB-C-SMD_TYPE-C-16PIN-2MD-073"
 			(at 35.56 40.64 0)
 			(hide yes)
 			(show_name no)
@@ -11315,7 +11315,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Circuits:ESP32_S3_Supermini"
+		(property "Footprint" "Circuits_MCU:ESP32_S3_Supermini"
 			(at 38.1 135.89 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12331,7 +12331,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Circuits:RJ45-TH_HC-WK88-H16-DB"
+		(property "Footprint" "Circuits_Connectors:RJ45-TH_HC-WK88-H16-DB"
 			(at 148.59 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -12734,7 +12734,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_XH_S3B-XH-A_1x03_P2.50mm_Horizontal"
+		(property "Footprint" "Circuits_Connectors:CONN-TH_S3B-XH-A-LF-SN"
 			(at 102.87 143.51 0)
 			(hide yes)
 			(show_name no)

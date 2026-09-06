@@ -43,3 +43,5 @@ fp-info-cache
 circuit/EASYEDA_MODELS/
 circuit/**/*.csv
 PCB/production/
+PCB/Mainboard/production/
+PCB/SensorBoard/production/
