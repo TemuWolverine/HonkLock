@@ -35,7 +35,7 @@ ESPHome's advantage is any buttons/remotes (Zigbee, ZWave, Matter, Wifi) connect
 | [3 pin JST XH](https://www.lcsc.com/product-detail/C157928.html)    | 1        | S3B-XH-A-LF                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 ## Sensor Board
-[Schematic](pcb/HonkLockSensorBoard.pdf)
+[Schematic](PCB/HonkLockSensorBoard.pdf)
 | Item                                                                | Quantity | Note                                   |
 | ------------------------------------------------------------------- | -------- | -------------------------------------- |
 | [MLX90393](https://www.lcsc.com/product-detail/C2649492.html)       | 1        | magnetometer for detecting tool on/off |
