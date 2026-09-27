@@ -1,16 +1,8 @@
-author: Paul Jenkins
-name: HonkLock
-version: 0.1
-source: https://github.com/TemuWolverine/HonkLock
-board: https://www.espboards.dev/esp32/esp32-s3-super-mini/
-labels: [servo, woodworking, esp32]
----
-
 substitutions:
   friendly_name: HonkLock
   device_name: honklock
-  servo_pin: GPIO08
-  sda_pin: GPIO010
+  servo_pin: GPIO13
+  sda_pin: GPIO08
   scl_pin: GPIO09
 
 packages:
@@ -19,11 +11,25 @@ packages:
     ref: main
     refresh: 1d
     files:
-      - esphome_boilerplate.yaml
       - boards/esp32_s3_supermini.yaml
 
 esphome:
+  name: ${device_name}
+  friendly_name: ${friendly_name}
   name_add_mac_suffix: true
+
+logger:
+
+api:
+  homeassistant_services: true
+  
+# Allow Over-The-Air updates
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
 
 # Setup
 globals:
@@ -45,6 +51,7 @@ globals:
 servo:
   - id: my_servo
     output: pwm_output
+    transition_length : 0.5s
     
 output:
   - platform: ledc 
@@ -58,17 +65,13 @@ i2c:
     scl: ${scl_pin}
     scan: true
 
-#  - id: bus_b
-#    sda: GPIO10
-#    scl: GPIO11
-#    scan: true
-
+    
 #Tool detection
 
 sensor:
   - platform: mlx90393 #https://esphome.io/components/sensor/mlx90393/
     i2c_id : bus_a
-    address: 0x18
+    address: 0x0C #important for honklock due to the sensor design
     id: mlx
     gain: 5X
 
