@@ -1,0 +1,13 @@
+# Jekyll
+_site/
+*-cache/
+.jekyll-metadata
+
+# Ruby
+.bundle/
+.ruby-version
+*.gem
+Gemfile.lock
+
+# JavaScript
+node_modules

@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Jekyll Serve",
+            "type": "shell",
+            "command": "wsl",
+            "args": [
+                "bash",
+                "-lic",
+                "JEKYLL_ENV=production bundle exec jekyll serve --force_polling --future"
+            ],
+            "problemMatcher": [],
+            "isBackground": true,
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        }
+    ]
+}

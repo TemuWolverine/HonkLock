@@ -1,0 +1,18 @@
+
+      <footer class="w-full bg-surface-container-low">
+         <div class="max-w-[1280px] mx-auto px-gutter-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md">
+            <div class="flex flex-col items-center md:items-start gap-space-2xs">
+               <div class="font-headline-sm text-headline-sm text-primary">
+                  {{site.title}}
+               </div>
+               <p class="font-body-sm text-body-sm text-on-surface-variant">© {{ site.time | date: '%Y' }} {{site.author}}</p>
+            </div>
+            <div class="flex items-center gap-space-lg">
+               <a class="w-12 h-12 rounded flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" href="{{site.repo}}" rel="noopener noreferrer" target="_blank" aria-label="GitHub">
+                  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" class="w-10 h-10" alt="GitHub" />
+               </a>
+            </div>
+         </div>
+      </footer>
+   </body>
+</html>

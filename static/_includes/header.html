@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <link rel="stylesheet" href="{{ "/assets/css/styles.css" | relative_url }}" />
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+      <!-- espwebtools -->
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+      <title>{{ page.title }} | {{ site.title }}</title>
+      {% seo %}
+            <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL'0, 'wght'400, 'GRAD'0, 'opsz'24;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+      }
+
+      body {
+        background-color: #f9f9f9;
+        color: #1a1c1c;
+      }
+
+      .technical-border {
+        border: 1px solid #000000;
+      }
+
+      .technical-border-light {
+        border: 1px solid #cfc4c5;
+      }
+
+      .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+      }
+
+      button { padding: 10px !important; }
+    </style>
+   </head>
+   
+   <body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+      <header class="top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.1)]">
+            <div class="h-40 max-w-[1280px] mx-auto px-gutter-desktop flex items-center justify-between gap-space-lg">
+                  <div class="flex items-center gap-space-xs">
+                        <img alt="Logo_With Background.png" class="" src="/assets/images/logo.png" />
+                        <div class="flex flex-col">
+                              <span class="font-headline-sm text-headline-sm text-primary tracking-tight" >{{site.title}}</span>
+                        </div>
+                  </div>
+                  <nav class="hidden md:flex items-center gap-space-md" data-active-classes="bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg"></nav>
+                  <div class="flex items-center gap-space-md">
+                        <div class="hidden lg:flex items-center gap-space-sm">
+                              <a class="w-12 h-12 rounded flex items-center justify-center bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" href="{{site.repo}}" rel="noopener noreferrer" target="_blank" aria-label="GitHub">
+                                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" class="w-10 h-10" alt="GitHub" />
+                              </a>
+                        </div>
+                  </div>
+            </div>
+      </header>
