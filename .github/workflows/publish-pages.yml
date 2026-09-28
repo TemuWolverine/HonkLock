@@ -63,6 +63,16 @@ jobs:
         run: bundle exec jekyll build -s . -d ../../output
         env:
           JEKYLL_ENV: production
+
+      - name: Check build output
+        run: |
+          echo "=== Checking output directory ==="
+          ls -lah output/ || echo "output/ does not exist"
+          echo "=== Checking static/_site ==="
+          ls -lah static/_site/ 2>/dev/null || echo "static/_site/ does not exist"
+          echo "=== Looking for CSS files ==="
+          find . -name "tailwind.css" -type f
+
       - name: Fetch firmware files
         env:
           GH_TOKEN: ${{ github.token }}
