@@ -60,7 +60,7 @@ jobs:
 
       - name: Build with Jekyll
         working-directory: ./static
-        run: bundle exec jekyll build -s . -d ../../output
+        run: bundle exec jekyll build -s . -d ../output
         env:
           JEKYLL_ENV: production
 
