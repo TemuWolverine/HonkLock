@@ -55,7 +55,7 @@ ESPHome's advantage is any buttons/remotes (Zigbee, ZWave, Matter, Wifi) connect
 | 'Standard Servo'                        | 1        | I've used a MG996 clone                           |
 | M2.5 heatset inserts, standoffs, screws |          | Design not 100% finalised                         |
 | M4 and M5 Hardware                      |          | Design not 100% finalised                         |
-| Ethernet cable                          |          | For connecting the brainboard to the sensor board |
+| cat5 cable                          |          | For connecting the brainboard to the sensor board |
 
 ## Power
 HonkLock is powered by any 5v1a USB brick - A or C.
