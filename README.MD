@@ -1,4 +1,7 @@
 ![](Images/Logo.png)
+
+[![Watch the video](https://img.youtube.com/vi/xcAHMuf7iR8/maxresdefault.jpg)](https://youtu.be/xcAHMuf7iR8)
+
 - [Electronics](#electronics)
   - [Brain board](#brain-board)
   - [Sensor Board](#sensor-board)
