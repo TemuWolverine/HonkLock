@@ -1,0 +1,259 @@
+# Arlec RC210 433.92MHz Power Outlet Package for HonkLock Gateway
+# Controls Channels A, B, C, and D via 33-bit OOK protocol
+# Includes on-demand RF remote learning routine and persistent Remote ID in flash
+
+esphome:
+  includes:
+    - arlec_decoder.h
+  on_boot:
+    priority: -100
+    then:
+      - lambda: |-
+          ESP_LOGI("arlec_learn", "Initializing Arlec Decoder...");
+          auto *dec = new arlec::ArlecDecoder();
+          dec->receiver = id(rf_rx);
+          dec->remote_id_var = &id(arlec_remote_id);
+          dec->remote_id_sensor = id(arlec_remote_id_sensor);
+          dec->learn_status_sensor = id(arlec_learn_status);
+          dec->learning_binary_sensor = id(arlec_learning_mode);
+          dec->cc1101_comp = id(my_cc1101);
+          dec->setup();
+          App.register_component_(dec);
+
+# Persistent 20-bit Remote ID (restored across reboots/power cycles from NVS flash)
+globals:
+  - id: arlec_remote_id
+    type: uint32_t
+    restore_value: true
+    initial_value: '0x0B580'
+
+api:
+  services:
+    - service: arlec_send_command
+      variables:
+        channel: string   # "A", "B", "C", "D", or "ALL"
+        turn_on: bool     # true = ON, false = OFF
+      then:
+        - script.execute:
+            id: arlec_transmit_by_channel
+            channel: !lambda 'return channel;'
+            turn_on: !lambda 'return turn_on;'
+
+    - service: arlec_learn_remote
+      then:
+        - lambda: |-
+            if (arlec::global_arlec_decoder != nullptr) {
+              arlec::global_arlec_decoder->start_learning();
+            }
+
+    - service: arlec_set_remote_id
+      variables:
+        remote_id: int    # 20-bit integer ID (e.g. 743680 for 0x0B580)
+      then:
+        - lambda: |-
+            id(arlec_remote_id) = (uint32_t) remote_id;
+            char id_buf[16];
+            snprintf(id_buf, sizeof(id_buf), "0x%05" PRIX32, (uint32_t) remote_id);
+            id(arlec_remote_id_sensor).publish_state(id_buf);
+            ESP_LOGI("arlec_tx", "Manually set Arlec Remote ID to 0x%05" PRIX32, (uint32_t) remote_id);
+
+# Active standby / learning state indicator with onboard LED feedback
+binary_sensor:
+  - platform: template
+    id: arlec_learning_mode
+    name: "Arlec Learning Mode"
+    icon: "mdi:radio-tower"
+    on_state:
+      - if:
+          condition:
+            binary_sensor.is_on: arlec_learning_mode
+          then:
+            - light.turn_on:
+                id: onboard_led
+                effect: "Blink"
+          else:
+            - light.turn_off:
+                id: onboard_led
+
+# Displays the currently learned remote ID and current learning status
+text_sensor:
+  - platform: template
+    id: arlec_remote_id_sensor
+    name: "Arlec Remote ID"
+    icon: "mdi:identifier"
+    lambda: |-
+      char buf[16];
+      snprintf(buf, sizeof(buf), "0x%05" PRIX32, id(arlec_remote_id));
+      return std::string(buf);
+    update_interval: 10s
+
+  - platform: template
+    id: arlec_learn_status
+    name: "Arlec Learn Status"
+    icon: "mdi:information-outline"
+    lambda: |-
+      return std::string("Idle");
+    update_interval: never
+
+script:
+  # Arlec RC210 33-bit OOK Protocol Transmission Script
+  - id: arlec_transmit
+    parameters:
+      switch_id: int
+      turn_on: bool
+    then:
+      - lambda: |-
+          uint32_t prefix = id(arlec_remote_id);
+          ESP_LOGI("arlec_tx", "Transmitting Arlec RC210 [ID 0x%05" PRIX32 "]: Switch %d, State: %s",
+                   prefix, switch_id, turn_on ? "ON" : "OFF");
+          auto call = id(rf_tx).transmit();
+          call.get_data()->set_carrier_frequency(0);
+
+          auto send_bit = [&](bool bit) {
+            if (bit) {
+              call.get_data()->item(780, 380); // Logic 1: ~780us Mark, ~380us Space
+            } else {
+              call.get_data()->item(260, 910); // Logic 0: ~260us Mark, ~910us Space
+            }
+          };
+
+          // 20-bit Remote ID (dynamic)
+          for (int i = 19; i >= 0; i--) {
+            send_bit((prefix >> i) & 1);
+          }
+
+          // Switch ID (3 bits: bits 2, 1, 0)
+          for (int i = 2; i >= 0; i--) {
+            send_bit((switch_id >> i) & 1);
+          }
+
+          // Command bit: 1 = ON, 0 = OFF
+          send_bit(turn_on);
+
+          // Fixed middle nibble: 0101
+          send_bit(false);
+          send_bit(true);
+          send_bit(false);
+          send_bit(true);
+
+          // Tail switch bits (MSB, 0, LSB)
+          send_bit((switch_id >> 2) & 1);
+          send_bit(false);
+          send_bit(switch_id & 1);
+
+          // Tail command bit: 1 = ON, 0 = OFF
+          send_bit(turn_on);
+
+          // Stop bit: 0
+          send_bit(false);
+
+          // Sync / Inter-frame gap: Mark 260us, Space 10400us
+          call.get_data()->item(260, 10400);
+
+          call.set_send_times(12);
+          call.set_send_wait(0);
+          call.perform();
+
+  # Helper to resolve Arlec channel string ("A", "B", "C", "D", "ALL") to Switch ID
+  - id: arlec_transmit_by_channel
+    parameters:
+      channel: std::string
+      turn_on: bool
+    then:
+      - lambda: |-
+          std::string ch = channel;
+          for (auto &c : ch) c = toupper(c);
+          int sw_id = 7; // Default to Outlet A
+          if (ch == "A" || ch == "1") sw_id = 7;
+          else if (ch == "B" || ch == "2") sw_id = 6;
+          else if (ch == "C" || ch == "3") sw_id = 5;
+          else if (ch == "D" || ch == "4") sw_id = 3;
+          else if (ch == "ALL" || ch == "0") sw_id = 2;
+          id(arlec_transmit).execute(sw_id, turn_on);
+
+button:
+  # Learning Trigger Button
+  - platform: template
+    name: "Learn Arlec Remote"
+    icon: "mdi:remote"
+    on_press:
+      - lambda: |-
+          ESP_LOGI("arlec_learn", "Learn Arlec Remote button clicked. Decoder ptr: %p", arlec::global_arlec_decoder);
+          if (arlec::global_arlec_decoder != nullptr) {
+            arlec::global_arlec_decoder->start_learning();
+          } else {
+            ESP_LOGE("arlec_learn", "Arlec Decoder is null!");
+          }
+
+  # Arlec RC210 4-Channel Individual ON/OFF Buttons
+  - platform: template
+    name: "Arlec Outlet A ON"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 7
+          turn_on: true
+
+  - platform: template
+    name: "Arlec Outlet A OFF"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 7
+          turn_on: false
+
+  - platform: template
+    name: "Arlec Outlet B ON"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 6
+          turn_on: true
+
+  - platform: template
+    name: "Arlec Outlet B OFF"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 6
+          turn_on: false
+
+  - platform: template
+    name: "Arlec Outlet C ON"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 5
+          turn_on: true
+
+  - platform: template
+    name: "Arlec Outlet C OFF"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 5
+          turn_on: false
+
+  - platform: template
+    name: "Arlec Outlet D ON"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 3
+          turn_on: true
+
+  - platform: template
+    name: "Arlec Outlet D OFF"
+    icon: "mdi:power-socket-au"
+    on_press:
+      - script.execute:
+          id: arlec_transmit
+          switch_id: 3
+          turn_on: false

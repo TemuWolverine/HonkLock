@@ -1,0 +1,216 @@
+# iVAC Pro Dust Collector Package for HonkLock Gateway
+# Mimics physical iVAC remote with DIP switch addressing and HA services
+
+api:
+  services:
+    - service: ivac_send_command
+      variables:
+        system: string   # "A", "B", "C", or "D"
+        tool: int        # 1 to 8
+        turn_on: bool    # true = ON, false = OFF
+      then:
+        - script.execute:
+            id: ivac_transmit_by_address
+            system: !lambda 'return system;'
+            tool: !lambda 'return tool;'
+            turn_on: !lambda 'return turn_on;'
+
+    - service: ivac_send_dips
+      variables:
+        s1: bool
+        s2: bool
+        s3: bool
+        s4: bool
+        s5: bool
+        turn_on: bool
+      then:
+        - script.execute:
+            id: ivac_transmit_dips
+            s1: !lambda 'return s1;'
+            s2: !lambda 'return s2;'
+            s3: !lambda 'return s3;'
+            s4: !lambda 'return s4;'
+            s5: !lambda 'return s5;'
+            turn_on: !lambda 'return turn_on;'
+
+# Switches mimicking the DIP switches on the back of the physical iVAC remote
+switch:
+  - platform: template
+    name: "iVAC DIP S1 (System)"
+    id: ivac_dip_s1
+    icon: "mdi:dip-switch"
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF
+    entity_category: config
+
+  - platform: template
+    name: "iVAC DIP S2 (System)"
+    id: ivac_dip_s2
+    icon: "mdi:dip-switch"
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF
+    entity_category: config
+
+  - platform: template
+    name: "iVAC DIP S3 (Tool)"
+    id: ivac_dip_s3
+    icon: "mdi:dip-switch"
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF
+    entity_category: config
+
+  - platform: template
+    name: "iVAC DIP S4 (Tool)"
+    id: ivac_dip_s4
+    icon: "mdi:dip-switch"
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF
+    entity_category: config
+
+  - platform: template
+    name: "iVAC DIP S5 (Tool)"
+    id: ivac_dip_s5
+    icon: "mdi:dip-switch"
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF
+    entity_category: config
+
+# Helper sensors showing decoded System and Tool names based on active DIP switch positions
+text_sensor:
+  - platform: template
+    name: "iVAC Configured System"
+    icon: "mdi:identifier"
+    entity_category: diagnostic
+    lambda: |-
+      bool s1 = id(ivac_dip_s1).state;
+      bool s2 = id(ivac_dip_s2).state;
+      if (!s1 && !s2) return std::string("System A");
+      if (s1 && !s2)  return std::string("System B");
+      if (!s1 && s2)  return std::string("System C");
+      return std::string("System D");
+    update_interval: 2s
+
+  - platform: template
+    name: "iVAC Configured Tool"
+    icon: "mdi:tools"
+    entity_category: diagnostic
+    lambda: |-
+      bool s3 = id(ivac_dip_s3).state;
+      bool s4 = id(ivac_dip_s4).state;
+      bool s5 = id(ivac_dip_s5).state;
+      if (!s3 && !s4 && !s5) return std::string("Tool 8");
+      int tool = (s3 ? 1 : 0) | (s4 ? 2 : 0) | (s5 ? 4 : 0);
+      return std::string("Tool ") + to_string(tool);
+    update_interval: 2s
+
+script:
+  # Base transmission engine encoding the 13-bit iVAC OOK PWM protocol
+  - id: ivac_transmit_dips
+    parameters:
+      s1: bool
+      s2: bool
+      s3: bool
+      s4: bool
+      s5: bool
+      turn_on: bool
+    then:
+      - lambda: |-
+          const char* sys_str = (!s1 && !s2) ? "A" : (s1 && !s2) ? "B" : (!s1 && s2) ? "C" : "D";
+          int tool_num = (!s3 && !s4 && !s5) ? 8 : ((s3?1:0) | (s4?2:0) | (s5?4:0));
+          ESP_LOGI("ivac_tx", "Triggered transmission: System %s, Tool %d, Command %s (DIPs: S1=%d S2=%d S3=%d S4=%d S5=%d)",
+                   sys_str, tool_num, turn_on ? "ON" : "OFF", s1, s2, s3, s4, s5);
+
+          auto call = id(rf_tx).transmit();
+          call.get_data()->set_carrier_frequency(0);
+
+          // Fixed ID / Header (bits 0..5: binary 011110)
+          call.get_data()->item(1250, 500);
+          call.get_data()->item(360, 500);
+          call.get_data()->item(360, 500);
+          call.get_data()->item(360, 500);
+          call.get_data()->item(360, 500);
+          call.get_data()->item(1220, 500);
+
+          auto add_bit = [&](bool bit) {
+            if (bit) {
+              call.get_data()->item(360, 940);
+            } else {
+              call.get_data()->item(800, 500);
+            }
+          };
+
+          // Bit 6: !S2
+          bool bit6  = !s2;
+          // Bit 7: !S1
+          bool bit7  = !s1;
+          // Bit 8: Command (0 = ON, 1 = OFF)
+          bool bit8  = !turn_on;
+          // Bit 9: !S5
+          bool bit9  = !s5;
+          // Bit 10: !S4
+          bool bit10 = !s4;
+          // Bit 11: !S3
+          bool bit11 = !s3;
+          // Bit 12: Even parity across all 13 bits (header has 4 ones, which is even)
+          bool bit12 = (bit6 ^ bit7 ^ bit8 ^ bit9 ^ bit10 ^ bit11);
+
+          add_bit(bit6);
+          add_bit(bit7);
+          add_bit(bit8);
+          add_bit(bit9);
+          add_bit(bit10);
+          add_bit(bit11);
+          add_bit(bit12);
+
+          call.set_send_times(6);
+          call.set_send_wait(15000); // 15ms gap between repeats
+          call.perform();
+
+  # Helper to resolve system letter (A-D) and tool number (1-8) into DIP states
+  - id: ivac_transmit_by_address
+    parameters:
+      system: std::string
+      tool: int
+      turn_on: bool
+    then:
+      - lambda: |-
+          char sys_char = 'A';
+          if (!system.empty()) sys_char = toupper(system[0]);
+          bool s1 = (sys_char == 'B' || sys_char == 'D');
+          bool s2 = (sys_char == 'C' || sys_char == 'D');
+
+          int t = tool;
+          if (t < 1 || t > 8) t = 1;
+          bool s3 = (t != 8 && (t & 1));
+          bool s4 = (t != 8 && (t & 2));
+          bool s5 = (t != 8 && (t & 4));
+
+          id(ivac_transmit_dips).execute(s1, s2, s3, s4, s5, turn_on);
+
+button:
+  - platform: template
+    id: ivac_btn_on
+    name: "iVAC Dust Collector ON"
+    icon: "mdi:fan"
+    on_press:
+      - lambda: |-
+          bool s1 = id(ivac_dip_s1).state;
+          bool s2 = id(ivac_dip_s2).state;
+          bool s3 = id(ivac_dip_s3).state;
+          bool s4 = id(ivac_dip_s4).state;
+          bool s5 = id(ivac_dip_s5).state;
+          id(ivac_transmit_dips).execute(s1, s2, s3, s4, s5, true);
+
+  - platform: template
+    id: ivac_btn_off
+    name: "iVAC Dust Collector OFF"
+    icon: "mdi:fan-off"
+    on_press:
+      - lambda: |-
+          bool s1 = id(ivac_dip_s1).state;
+          bool s2 = id(ivac_dip_s2).state;
+          bool s3 = id(ivac_dip_s3).state;
+          bool s4 = id(ivac_dip_s4).state;
+          bool s5 = id(ivac_dip_s5).state;
+          id(ivac_transmit_dips).execute(s1, s2, s3, s4, s5, false);
+

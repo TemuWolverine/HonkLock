@@ -45,3 +45,4 @@ circuit/**/*.csv
 PCB/production/
 PCB/Mainboard/production/
 PCB/SensorBoard/production/
+Gateway/.esphome/
