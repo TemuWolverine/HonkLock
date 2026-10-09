@@ -1,20 +1,20 @@
 substitutions:
-  clkpin: GPIO04
-  mosi: GPIO06
-  miso: GPIO05
-  cs_pin: GPIO7
-  gdo0_pin: GPIO3
-  gdo1_pin: GPIO2
-  led_pin: GPIO8
+  clkpin: GPIO13
+  mosi: GPIO44
+  miso: GPIO43
+  cs_pin: GPIO01
+  gdo0_pin: GPIO12
+  gdo1_pin: GPIO11
+  led_pin: GPIO48
 
 esphome:
-  name: honklockgateway
-  friendly_name: HonklockGateway
+  name: honklockgateway2
+  friendly_name: HonklockGateway2
   min_version: 2026.4.0
   name_add_mac_suffix: false
 
 esp32:
-  variant: esp32c3
+  variant: esp32s3
   framework:
     type: esp-idf
 
@@ -30,11 +30,6 @@ ota:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  power_save_mode: none
-  manual_ip:
-    static_ip: 10.0.1.139
-    gateway: 10.0.0.1
-    subnet: 255.0.0.0
 
 logger:
   level: DEBUG
@@ -44,7 +39,6 @@ spi:
   clk_pin: ${clkpin}
   mosi_pin: ${mosi}
   miso_pin: ${miso}
-  interface: software
 
 # Configure the CC1101 transceiver hardware registers
 cc1101:
@@ -60,6 +54,7 @@ remote_transmitter:
   pin: ${gdo0_pin}
   carrier_duty_percent: 100%
   non_blocking: true
+  rmt_symbols: 48
   on_transmit:
     - lambda: |-
         ESP_LOGI("rf_tx", "CC1101 entering TX mode and transmitting pulses...");
@@ -77,26 +72,28 @@ remote_receiver:
   filter: 50us
   idle: 20ms
   buffer_size: 2kb
+  rmt_symbols: 48
 
-# ESP32-C3-SuperMini Onboard LED (GPIO8, active-low)
-output:
-  - platform: gpio
-    pin:
-      number: ${led_pin}
-      inverted: true
-    id: onboard_led_out
-
+# ESP32-S3-SuperMini Onboard WS2812B RGB LED (GPIO48)
 light:
-  - platform: binary
+  - platform: esp32_rmt_led_strip
+    rgb_order: GRB
+    pin: ${led_pin}
+    num_leds: 1
+    chipset: ws2812
+    rmt_symbols: 48
     name: "Onboard LED"
     id: onboard_led
-    output: onboard_led_out
     internal: true
     effects:
       - strobe:
           name: "Blink"
           colors:
             - state: true
+              brightness: 100%
+              red: 0%
+              green: 0%
+              blue: 100%
               duration: 250ms
             - state: false
               duration: 250ms
